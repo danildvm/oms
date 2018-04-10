@@ -1,0 +1,4 @@
+---
+# tasks file for oms
+- import_tasks: maven.yml
+#- import_tasks: docker.yml

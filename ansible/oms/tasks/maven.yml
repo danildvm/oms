@@ -1,0 +1,43 @@
+---
+- name: Istall jdk-6u45-linux-x64.bin
+  copy:
+    src: jdk-6u45-linux-x64.bin
+    dest: /usr/local
+    mode: "u=rx,g=rx,o=x"
+    force: yes
+
+- name: run Java
+  command: ./jdk-6u45-linux-x64.bin
+  args:
+    chdir: /usr/local
+
+- name: JAVA_HOME and Maven PATH environment variable for all users
+  lineinfile:
+    path: /etc/environment
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - { regexp: '^PATH=', line: 'PATH="{{ system_path }}"' }
+    - { regexp: '^JAVA_HOME=', line: 'JAVA_HOME="{{ java_home }}"' }
+    - { regexp: '^M2_HOME=', line: 'M2_HOME="{{ mvn_home }}"' }
+
+- name: Install Unzip
+  apt: name={{ item }} state=present update_cache=yes
+  with_items:
+    - unzip
+
+- name: Extract Maven tarball
+  unarchive:
+    src: ../files/{{ mvn_tarball }}
+    dest: /opt
+
+- name: Modify sshd_config 
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^PasswordAuthentication'
+    line: 'PasswordAuthentication yes'
+
+- name: restart ssh
+  service:
+    name: ssh
+    state: restarted

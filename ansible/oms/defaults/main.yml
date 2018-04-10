@@ -1,0 +1,7 @@
+---
+# defaults file for oms
+system_path: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/opt/apache-maven-3.2.5/bin:/usr/local/jdk1.6.0_45/bin"
+java_src: "jdk-6u45-linux-x64.bin"
+java_home: "/usr/local/jdk1.6.0_45"
+mvn_tarball: "apache-maven-3.2.5-bin.tar.gz"
+mvn_home: "/opt/apache-maven-3.2.5"

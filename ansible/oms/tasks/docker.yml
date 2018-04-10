@@ -1,0 +1,48 @@
+---
+# docker yml file
+- name: Update sourse list
+  apt: update_cache=yes
+
+- name: Add an Apt signing key, uses whichever key is at the URL
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: Add repository into sources list and update
+  apt_repository:
+    repo: deb https://download.docker.com/linux/ubuntu xenial stable
+    state: present
+    update_cache: yes
+
+- name: Install DockerCE
+  apt: name=docker-ce
+
+#- name: Install DockerCE and Python3-pip
+#  apt: name={{ item }}
+#  with_items:
+#    - docker-ce
+#    - mc
+#    - python3-pip
+
+#- name: Install Pip requirements
+#  pip: 
+#    requirements: /ssDevOps/requirements.txt
+#    executable: /usr/bin/pip3
+ 
+- name: Install docker-compose   
+  copy:
+    src: docker-compose
+    dest: /usr/local/bin
+    mode: "u=rx,g=rx,o=x"
+    force: yes
+
+
+- name: Start docker-compose file
+  command: /usr/local/bin/docker-compose up -d
+  args:
+    chdir: /ssDevOps/
+ 
+#- name: Start docker-compose file
+#  docker_service:
+#    project_src: /ssDevOps/
+#    state: present
