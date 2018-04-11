@@ -1,3 +1,5 @@
 .settings/
 .svn/
 ansible/oms/files/
+.vagrant/
+*.log

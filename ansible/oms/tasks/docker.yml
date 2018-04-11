@@ -15,20 +15,11 @@
     update_cache: yes
 
 - name: Install DockerCE
-  apt: name=docker-ce
+  apt: name={{ item }}
+  with_items:
+    - docker-ce
+    - mysql-client
 
-#- name: Install DockerCE and Python3-pip
-#  apt: name={{ item }}
-#  with_items:
-#    - docker-ce
-#    - mc
-#    - python3-pip
-
-#- name: Install Pip requirements
-#  pip: 
-#    requirements: /ssDevOps/requirements.txt
-#    executable: /usr/bin/pip3
- 
 - name: Install docker-compose   
   copy:
     src: docker-compose
@@ -40,9 +31,4 @@
 - name: Start docker-compose file
   command: /usr/local/bin/docker-compose up -d
   args:
-    chdir: /ssDevOps/
- 
-#- name: Start docker-compose file
-#  docker_service:
-#    project_src: /ssDevOps/
-#    state: present
+    chdir: /oms/
