@@ -8,6 +8,17 @@ RUN cd /opt/ && \
 USER ubuntu
 ENV JAVA_HOME=/opt/java6 \ 
     PATH=${PATH}:/opt/java6/bin \ 
-    LANG=zh_CN.UTF-8
+    LANG=en_US.UTF-8
 
-CMD ["/bin/bash"]
+COPY jboss-as-7.1.1.Final.tar.gz /opt/jboss-as-7.1.1.Final.tar.gz
+RUN cd /opt/ && \
+    tar xf /opt/jboss-as-7.1.1.Final.tar.gz && \
+    mv /opt/jboss-as-7.1.1.Final /opt/jboss && \
+    rm -rf /opt/jboss-as-7.1.1.Final.tar.gz
+
+ENV JBOSS_HOME /opt/jboss
+ENV LAUNCH_JBOSS_IN_BACKGROUND true
+
+EXPOSE 8080
+
+CMD ["/opt/jboss/bin/standalone.sh", "-b", "0.0.0.0"]

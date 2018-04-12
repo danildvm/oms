@@ -20,13 +20,14 @@ Vagrant.configure("2") do |config|
 #    ap.ssh.username = "vagrant"
 #    ap.ssh.password = "vagrant"
     om.vm.network "forwarded_port", guest: 8080, host: 8080
+    om.vm.network "forwarded_port", guest: 9990, host: 9990
     om.vm.network "forwarded_port", guest: 80, host: 8888
     om.vm.network "forwarded_port", guest: 8111, host: 8111
     om.vm.network :private_network, ip: "192.168.0.202"
     om.vm.synced_folder "./", "/oms"
     om.vm.provider "virtualbox" do |vb|
         vb.gui = false
-        vb.memory = "2048"
+        vb.memory = "2560"
         vb.name = "oms"
     end
     om.vm.provision "ansible" do |ansible|
