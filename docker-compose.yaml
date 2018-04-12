@@ -9,3 +9,12 @@ services:
     environment:
         MYSQL_ROOT_PASSWORD: root
         MYSQL_DATABASE: _055_OMS
+
+  teamcity:
+    image: jetbrains/teamcity-server
+    hostname: teamcity
+    ports:
+      - "8111:8111"
+    volumes:
+      - ./teamcity/data:/data/teamcity_server/datadir
+      - ./teamcity/data/log:/opt/teamcity/logs
