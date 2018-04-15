@@ -6,3 +6,4 @@ ansible/oms/files/
 teamcity/
 docker_build/jboss-as-7.1.1.Final.tar.gz
 docker_build/jdk-6u45-linux-x64.bin
+deploy/abc.war

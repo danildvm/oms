@@ -7,11 +7,11 @@
 	<session-factory>
 
 		<!-- local connection properties -->
-		<property name="hibernate.connection.driver_class">net.sourceforge.jtds.jdbc.Driver</property>
-		<property name="dialect">org.hibernate.dialect.SQLServerDialect</property>
-		<property name="hibernate.connection.url">jdbc:jtds:sqlserver://streamer2005.softserveinc.com/_055_OMS_test;instance=tc;</property>
-		<property name="hibernate.connection.username">055db</property>
-		<property name="hibernate.connection.password">055db</property>
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="hibernate.connection.url">jdbc:mysql://172.18.0.4:3306/_055_OMS</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">root</property>
 
 		<property name="hibernate.hbm2ddl.auto">create-drop</property>
 

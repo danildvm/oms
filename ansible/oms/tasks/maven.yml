@@ -20,7 +20,7 @@
     - { regexp: '^PATH=', line: 'PATH="{{ system_path }}"' }
     - { regexp: '^JAVA_HOME=', line: 'JAVA_HOME="{{ java_home }}"' }
     - { regexp: '^M2_HOME=', line: 'M2_HOME="{{ mvn_home }}"' }
-
+    
 - name: Install Unzip
   apt: name={{ item }} state=present update_cache=yes
   with_items:

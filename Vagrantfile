@@ -27,7 +27,7 @@ Vagrant.configure("2") do |config|
     om.vm.synced_folder "./", "/oms"
     om.vm.provider "virtualbox" do |vb|
         vb.gui = false
-        vb.memory = "2560"
+        vb.memory = "3072"
         vb.name = "oms"
     end
     om.vm.provision "ansible" do |ansible|

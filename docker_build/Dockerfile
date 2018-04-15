@@ -16,9 +16,12 @@ RUN cd /opt/ && \
     mv /opt/jboss-as-7.1.1.Final /opt/jboss && \
     rm -rf /opt/jboss-as-7.1.1.Final.tar.gz
 
-ENV JBOSS_HOME /opt/jboss
-ENV LAUNCH_JBOSS_IN_BACKGROUND true
+ENV JBOSS_HOME=/opt/jboss
+ENV LAUNCH_JBOSS_IN_BACKGROUND=true
 
 EXPOSE 8080
+EXPOSE 9990
 
-CMD ["/opt/jboss/bin/standalone.sh", "-b", "0.0.0.0"]
+VOLUME $JBOSS_HOME
+
+CMD ["/opt/jboss/bin/standalone.sh", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]

@@ -9,7 +9,10 @@ services:
     environment:
         MYSQL_ROOT_PASSWORD: root
         MYSQL_DATABASE: _055_OMS
-
+    networks:
+      vpcbr:
+        ipv4_address: 172.18.0.4
+  
   teamcity:
     image: jetbrains/teamcity-server
     hostname: teamcity
@@ -18,10 +21,26 @@ services:
     volumes:
       - ./teamcity/data:/data/teamcity_server/datadir
       - ./teamcity/data/log:/opt/teamcity/logs
+    networks:
+      vpcbr:
+        ipv4_address: 172.18.0.3
   
   jboss:
-    image: danildvm/jboss:java6
+    image: danildvm/jboss7:java6
     hostname: jboss
     ports:
       - "8080:8080"
       - "9990:9990"
+    volumes:
+      - ./deploy:/opt/jboss/standalone/deployments
+    networks:
+      vpcbr:
+        ipv4_address: 172.18.0.2
+
+networks:
+  vpcbr:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16
+          gateway: 172.18.0.1
