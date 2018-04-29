@@ -1,7 +1,7 @@
 ---
 # docker yml file
-- name: Update sourse list
-  apt: update_cache=yes
+# - name: Update sourse list
+#   apt: update_cache=yes
 
 - name: Add an Apt signing key, uses whichever key is at the URL
   apt_key:
@@ -18,17 +18,32 @@
   apt: name={{ item }}
   with_items:
     - docker-ce
-    - mysql-client
+    - python3-pip
 
-- name: Install docker-compose   
-  copy:
-    src: docker-compose
-    dest: /usr/local/bin
-    mode: "u=rx,g=rx,o=x"
-    force: yes
+- name: Install Pip requirements
+  pip: 
+    requirements: /oms/requirements.txt
+    executable: /usr/bin/pip3
 
+- name: Build Jboss image
+  docker_image:
+    path: /oms/docker_build
+    name: jboss7:java6
+
+# - name: Install docker-compose   
+#   copy:
+#     src: docker-compose
+#     dest: /usr/local/bin
+#     mode: "u=rx,g=rx,o=x"
+#     force: yes
+
+
+# - name: Start docker-compose file
+#   command: /usr/local/bin/docker-compose up -d
+#   args:
+#     chdir: /oms/
 
 - name: Start docker-compose file
-  command: /usr/local/bin/docker-compose up -d
-  args:
-    chdir: /oms/
+  docker_service:
+    project_src: /oms/
+    state: present
